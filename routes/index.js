@@ -1,11 +1,16 @@
 const { Router } = require('express');
-const router = Router();
-
+const cors = require('cors');
 const nodemailer = require('nodemailer');
 
+const router = Router();
+//router.use(cors());
+//router.use();
+//app.use(Router().urlencoded({extended: true}));
+
+
 router.post("/api/sendEmail", async (req, res) => {
-    const { nombre, email, asunto, mensaje } = req.body;
-    console.log(req.body);
+    const { nombre, email, asunto, mensaje } = req.body.datos;
+    
     contentHTML = `
         <h1>User Information</h1>
         <ul>
@@ -27,10 +32,10 @@ router.post("/api/sendEmail", async (req, res) => {
 
     let info = await transporter.sendMail({
         from: '"FaztTech Server" <osbaldo.spinka37@ethereal.email>', // sender address,
-        to: 'laloleonelm@gmail.com',
+        to: "l@gmail.com",
         subject: 'Website Contact Form',
-        text: 'Hello World'
-        //html: contentHTML
+        //text: 'Hello World'
+        html: contentHTML
     })
 
     console.log('Message sent: %s', info.messageId);
